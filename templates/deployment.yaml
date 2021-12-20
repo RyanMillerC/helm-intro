@@ -47,6 +47,13 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: index-html
+              mountPath: /usr/share/nginx/html
+      volumes:
+        - name: index-html
+          configMap:
+            name: nginx-index-html
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
